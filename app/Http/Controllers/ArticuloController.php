@@ -26,23 +26,24 @@ class ArticuloController extends Controller
             ->paginate(9)
             ->withQueryString();
 
-        $categories = Categoria::orderBy('nombre')->get();
+        $categorias = Categoria::orderBy('nombre')->get();
+
 
         return view('articulos.index', [
             'articulos' => $articles,
-            'categorias' => $categories,
+            'categorias' => $categorias,
             'selectedCategoria' => $category,
         ]);
     }
 
-    public function show(Articulo $article): View
+    public function show(Articulo $articulo): View
     {
-        abort_unless($article->created_at !== null, 404);
+        abort_unless($articulo->created_at !== null, 404);
 
-        $article->load('categoria');
+        $articulo->load('categoria');
 
         return view('articulos.show', [
-            'articulo' => $article,
+            'articulo' => $articulo,
         ]);
     }
 }

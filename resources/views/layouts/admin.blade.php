@@ -39,7 +39,6 @@
 
                 <a
                     href="{{ route('articulos.index') }}"
-                    target="_blank"
                     class="text-sm text-slate-600 hover:text-slate-900"
                 >
                     Ver sitio

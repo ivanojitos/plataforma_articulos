@@ -1,60 +1,107 @@
-@extends('layouts.public')
-
-@section('title', $articulo->titulo)
+@extends('layouts.app')
 
 @section('content')
 
-<article class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+<div class="bg-gray-50 min-h-screen">
 
-    <a
-        href="{{ route('articulos.index') }}"
-        class="text-sm font-medium text-slate-500 hover:text-slate-900"
-    >
-        ← Volver a artículos
-    </a>
+    <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-    <div class="mt-8">
+        {{-- Regresar --}}
+        <div class="mb-8">
 
-        <div class="flex flex-wrap items-center gap-3">
-
-            <span class="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium">
-                {{ $articulo->categoria->nombre }}
-            </span>
-
-            <time class="text-sm text-slate-500">
-                {{ $articulo->created_at->format('d/m/Y') }}
-            </time>
+            <a
+                href="{{ route('articulos.index') }}"
+                class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 transition"
+            >
+                ← Volver a artículos
+            </a>
 
         </div>
 
-        <h1 class="mt-5 text-4xl font-bold tracking-tight sm:text-5xl">
-            {{ $articulo->titulo }}
-        </h1>
 
-        @if ($articulo->descripcion)
-            <p class="mt-5 text-xl leading-8 text-slate-600">
-                {{ $articulo->descripcion }}
-            </p>
-        @endif
+        {{-- Encabezado --}}
+        <header class="mb-8">
 
+            {{-- Categoría --}}
+            @if ($articulo->categoria)
+
+                <div class="mb-4">
+
+                    <span
+                        class="inline-flex items-center rounded-full bg-gray-900 px-3 py-1 text-sm font-medium text-white"
+                    >
+                        {{ $articulo->categoria->nombre }}
+                    </span>
+
+                </div>
+
+            @endif
+
+
+            {{-- Título --}}
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 leading-tight">
+                {{ $articulo->titulo }}
+            </h1>
+
+
+            {{-- Fecha --}}
+            <div class="mt-5 flex items-center gap-2 text-sm text-gray-500">
+
+                <span>
+                    Publicado el
+                </span>
+
+                <time>
+                    {{ $articulo->created_at->format('d/m/Y') }}
+                </time>
+
+            </div>
+
+        </header>
+
+
+        {{-- Imagen principal --}}
         @if ($articulo->imagen)
 
-            <div class="mt-10 overflow-hidden rounded-2xl">
+            <div class="mb-10 overflow-hidden rounded-2xl">
+
                 <img
-                    src="{{ Storage::url($articulo->imagen) }}"
+                    src="{{ asset('storage/' . $articulo->imagen) }}"
                     alt="{{ $articulo->titulo }}"
-                    class="w-full object-cover"
+                    class="w-full max-h-[500px] object-cover"
                 >
+
             </div>
 
         @endif
 
-        <div class="prose prose-slate mt-10 max-w-none">
-            {!! nl2br(e($articulo->contenido)) !!}
+
+        {{-- Contenido --}}
+        <div class="rounded-2xl bg-white p-6 sm:p-8 lg:p-10 shadow-sm border border-gray-100">
+
+            <div class="prose prose-lg max-w-none text-gray-700">
+
+                {!! nl2br(e($articulo->contenido)) !!}
+
+            </div>
+
         </div>
 
-    </div>
 
-</article>
+        {{-- Navegación inferior --}}
+        <div class="mt-10 pt-8 border-t border-gray-200">
+
+            <a
+                href="{{ route('articulos.index') }}"
+                class="inline-flex items-center rounded-lg bg-gray-900 px-5 py-3 text-sm font-semibold text-white hover:bg-gray-700 transition"
+            >
+                ← Ver todos los artículos
+            </a>
+
+        </div>
+
+    </article>
+
+</div>
 
 @endsection
