@@ -31,7 +31,7 @@ class ArticleRequest extends FormRequest
 
             'categoria_id' => [
                 'required',
-                'exists:categories,id',
+                'exists:categorias,id',
             ],
 
             'descripcion' => [

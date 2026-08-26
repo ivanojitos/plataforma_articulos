@@ -1,11 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'Crear artículo')
+@section('title', 'Editar artículo')
 
 @section('content')
 
 <div class="mx-auto max-w-3xl">
 
+    {{-- Encabezado --}}
     <div class="mb-8">
 
         <a
@@ -15,27 +16,35 @@
             ← Volver a artículos
         </a>
 
-        <h1 class="mt-4 text-3xl font-bold">
-            Crear artículo
+        <h1 class="mt-4 text-3xl font-bold text-slate-900">
+            Editar artículo
         </h1>
 
         <p class="mt-2 text-slate-500">
-            Completa la información de la nueva publicación.
+            Modifica la información de esta publicación.
         </p>
 
     </div>
 
+
+    {{-- Formulario --}}
     <form
         method="POST"
-        action="{{ route('admin.articulos.store') }}"
+        action="{{ route('admin.articulos.update', $articulo) }}"
         enctype="multipart/form-data"
         class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8"
     >
 
         @csrf
 
+        @method('PUT')
+
+
+        {{-- Campos --}}
         @include('admin.articulos._form')
 
+
+        {{-- Botones --}}
         <div class="mt-8 flex justify-end gap-3 border-t border-slate-200 pt-6">
 
             <a
@@ -49,7 +58,7 @@
                 type="submit"
                 class="rounded-lg bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-700"
             >
-                Crear artículo
+                Actualizar artículo
             </button>
 
         </div>

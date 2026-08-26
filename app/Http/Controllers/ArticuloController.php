@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Article;
 use App\Models\Articulo;
 use App\Models\Categoria;
-use App\Models\Category;
+
 use Illuminate\View\View;
 
 class ArticuloController extends Controller

@@ -4,7 +4,7 @@
     <div>
 
         <label
-            for="title"
+            for="titulo"
             class="block text-sm font-medium text-slate-700"
         >
             Título
@@ -12,14 +12,14 @@
 
         <input
             type="text"
-            name="title"
-            id="title"
-            value="{{ old('title', $articulo->titulo ?? '') }}"
+            name="titulo"
+            id="titulo"
+            value="{{ old('titulo', $articulo->titulo ?? '') }}"
             class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-slate-900 focus:ring-slate-900"
             placeholder="Ej. Cómo construir una aplicación con Laravel"
         >
 
-        @error('title')
+        @error('titulo')
             <p class="mt-2 text-sm text-red-600">
                 {{ $message }}
             </p>
@@ -39,7 +39,7 @@
 
         <select
             name="categoria_id"
-            id="category_id"
+            id="categoria_id"
             class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-slate-900 focus:ring-slate-900"
         >
 
@@ -110,7 +110,7 @@
             rows="12"
             class="mt-2 block w-full rounded-lg border-slate-300 shadow-sm focus:border-slate-900 focus:ring-slate-900"
             placeholder="Escribe el contenido completo..."
-        >{{ old('contenido', $article->contenido ?? '') }}</textarea>
+        >{{ old('contenido', $articulo->contenido ?? '') }}</textarea>
 
         @error('contenido')
             <p class="mt-2 text-sm text-red-600">
