@@ -18,7 +18,7 @@ class Articulo extends Model
         'contenido',
         'imagen'
     ];
-    public function categorias()
+    public function categoria()
     {
         return $this->belongsTo(Categoria::class);
     }

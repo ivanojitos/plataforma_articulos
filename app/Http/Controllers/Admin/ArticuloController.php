@@ -20,7 +20,7 @@ class ArticuloController extends Controller
             ->latest('created_at')
             ->paginate(10);
 
-        return view('admin.articulo.index', [
+        return view('admin.articulos.index', [
             'articulos' => $articulos,
         ]);
     }
@@ -29,7 +29,7 @@ class ArticuloController extends Controller
     {
         $categorias = Categoria::orderBy('nombre')->get();
 
-        return view('admin.articulo.create', [
+        return view('admin.articulos.create', [
             'categorias' => $categorias,
         ]);
     }
@@ -102,7 +102,7 @@ class ArticuloController extends Controller
         $articulo->delete();
 
         return redirect()
-            ->route('admin.articles.index')
+            ->route('admin.articulos.index')
             ->with('success', 'Artículo eliminado correctamente.');
     }
 
