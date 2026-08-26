@@ -1,59 +1,211 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Plataforma de Artículos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Descripción
 
-## About Laravel
+Plataforma web desarrollada con Laravel...
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologías
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel
+- PHP
+- MySQL
+- Blade
+- Tailwind CSS
+- JavaScript basico
+- Eloquent ORM
+- MVC
+- Migrations + Seeders
+- Middleware
+- CSRF + Validacion Laravel
+- Blade Layouts + Componentes
+- Laravel Storage
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+PHP 8.2.12
+Composer 2.4.4
+Node.js 25.8.1
+MySQL 8.0.38
+NPM 11.11.0
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalación
 
-## Laravel Sponsors
+Primero ubicate en la carpeta donde quieres que se instale el proyecto.
+una ves posiciondado ahi ahora si ingresa esta linea y da enter.
+y por cada linea da enter y espera y cuando finalice ingresa la siguiente linea.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+git clone https://github.com/ivanojitos/plataforma_articulos.git
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+composer install
 
-## Contributing
+npm install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+cp .env.example .env
 
-## Code of Conduct
+php artisan key:generate
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Base de datos
 
-## Security Vulnerabilities
+Configurar .env
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=plataforma_articulos
+DB_USERNAME=root
+DB_PASSWORD=root
 
-## License
+## Migraciones
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+php artisan migrate --seed
+
+## Storage
+
+php artisan storage:link
+
+## Assets
+
+npm run build
+
+## Servidor
+
+php artisan serve
+
+## Usuario administrador
+
+Email:
+admin@example.com
+
+Password:
+password
+
+## URLs
+
+Público:
+
+/articulos
+
+Administración:
+
+/admin
+
+
+
+La sección pública puede ser consultada sin autenticación.
+
+La sección administrativa requiere iniciar sesión con el usuario administrador
+creado mediante el Seeder.
+
+## Decisiones UX/UI
+
+La interfaz fue diseña buscando una experiencia sencilla, clara y consistente tanto para los usuarios  de la seccion puiblicac como para el administrador
+
+SECCION PUBLICA
+
+la seccion de articulos utiliza una estructura visual basada en tarjetas para facilitar la exploracion del contenido. cada tarjeta muestra la informacion pricipal del articulo, imagen destacada, titulo, cateegoria y descripcion junto con su fecha de creacion.
+
+el filtro de categoria se muestra visible y accesiuble para que el usuario pueda encontrar contenido especifico sin necesidad de navegar entre diferentes paginas 
+
+la vista de detalle utiliza una jerarquia visual clara , destacando el titulo, categoria, fecha , imagen y contenido completo.
+
+SECCION ADMINISTRATIVA
+
+la administracion se diseño priorizando las acciones principales:
+
+-consultar articulos.
+-crear articulos.
+-editar articulos.
+eliminar articulos.
+
+los formularios utilizan etiquetas claras,mensajes de validacion y estados visuales para comunicar al usuario si una operacion fue realizada correctamente o si existe algun problema.
+
+antes de eliminar un articulo se solicita confirmacion para evitar acciones accidentales.
+
+RESPONSIVE
+
+la interfaz fue desarrollada considerante diferentes tamaños de pantalla.
+los componenetes se adaptan a dispositivos, moviles,tablets y escritorio,
+manteniendo la legibilidad y accesibilidad de las acciones principales.
+
+Estados.
+
+Se contemplan diferentes estados para mejorar la experiencia:
+
+-lista de articulos vacia.
+-filtro sin resultados.
+-errores de validacion.
+-operaciones realizadas correctamente.
+-confirmacion antes de eliminar.
+estados de carga y navegacion cuando corresponde. 
+
+
+
+
+## Arquitectura
+
+El proyecto utiliza laravel sigueinte una estrucutra basada en el patron MVC proporcianado por el framework.
+
+Modelo
+
+Los modelos representan las entidades principales de la aplicacion
+
+-user
+articulo
+categoria
+
+articulos mantiene una relacion bologsto con categoria mientras que categoria mantiene una relacion hasmany con articulo.
+
+Controlador.
+
+La logica relacionad con los articulos se separa entre la seccion publica y la administracion
+
+-articulocontroller : consulta y muestra los articulos publicos.
+-admin\ar5ticulocontroller : administra las operaciones crud.
+admin\dashboardcontroller : gestiona el panel administrativo.
+
+esta separacion permite mantener diferenciadas las responabilidades de la seccion publica y privada.
+
+VISTAS
+
+las vistas se implementaron utilizando blade y se organizaron por contexto 
+
+-articulos : vistas publicas
+-admin/ : vistas administrativas
+-layouts/ : estructuras reutilizables
+-auth/ : vistas relacionadas con autenticacion 
+
+se utilizan layouts y componentes reutilizables para evitar duplicacion de codigo y mantener consistencia visual.
+
+PERSISTENCIA
+
+la informacion se almacena en una base de datos relacionl utilizando Eloquent ORM.
+
+las tablas principales son 
+
+-user
+-categorias
+-articulos
+
+la relacion entres articulos yu categorias se estable mediante categoria_id
+
+VALIDACION Y SEGURIDAD
+
+las solicitudes son validadas desde los controladores antes de persistir informacion
+
+se utilizan las funcionalidades prorporciandas por laravel para:
+
+-proteccion CSRF
+-autenticacion
+-hash seguro de contraseñas.
+-validacion de datos.
+-proteccion de rutas administrativas.
+-escape de contenido mostrado en las vistas.
+
+FRONT END
+
+la interfaz utiliza blade junto con Tailwind css para la construccion de los componentes visuales y el diseño responsive.
+
+la logica de negocio permanece principalmente en laravel , mientras que el font end se encarga de la presentacion y las intereacciones necesarias para la experiencia del usuario.
+

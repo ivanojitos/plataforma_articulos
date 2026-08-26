@@ -5,15 +5,11 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="Plataforma de artículos y publicaciones"
-    >
+    <meta name="description" content="Plataforma de artículos y publicaciones">
+
+    <link rel="icon" type="image/png" href="{{ asset('IA.JPG') }}">
 
     <title>
         @yield('title', 'Artículos')
@@ -37,14 +33,10 @@
             <div class="flex h-16 items-center justify-between">
 
                 {{-- Logo --}}
-                <a
-                    href="{{ route('articulos.index') }}"
-                    class="flex items-center gap-3"
-                >
+                <a href="{{ route('articulos.index') }}" class="flex items-center gap-3">
 
                     <div
-                        class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-sm font-bold text-white"
-                    >
+                        class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-sm font-bold text-white">
                         A
                     </div>
 
@@ -67,10 +59,8 @@
                 <nav class="flex items-center gap-2 sm:gap-5">
 
                     {{-- Publicaciones --}}
-                    <a
-                        href="{{ route('articulos.index') }}"
-                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-                    >
+                    <a href="{{ route('articulos.index') }}"
+                        class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
                         Publicaciones
                     </a>
 
@@ -78,10 +68,8 @@
                     @auth
 
                         {{-- Administración --}}
-                        <a
-                            href="{{ route('admin.dashboard') }}"
-                            class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-                        >
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
                             Administración
                         </a>
 
@@ -107,29 +95,20 @@
 
 
                         {{-- Logout --}}
-                        <form
-                            method="POST"
-                            action="{{ route('logout') }}"
-                        >
+                        <form method="POST" action="{{ route('logout') }}">
 
                             @csrf
 
-                            <button
-                                type="submit"
-                                class="rounded-lg px-3 py-2 text-sm font-medium text-slate-500 transition hover:bg-red-50 hover:text-red-600"
-                            >
+                            <button type="submit"
+                                class="rounded-lg px-3 py-2 text-sm font-medium text-slate-500 transition hover:bg-red-50 hover:text-red-600">
                                 Salir
                             </button>
 
                         </form>
-
                     @else
-
                         {{-- Login --}}
-                        <a
-                            href="{{ route('login') }}"
-                            class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700"
-                        >
+                        <a href="{{ route('login') }}"
+                            class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700">
                             Iniciar sesión
                         </a>
 
@@ -151,11 +130,8 @@
     <div class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
 
         @if (session('success'))
-
-            <div
-                class="flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800"
-                role="alert"
-            >
+            <div class="flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800"
+                role="alert">
 
                 <div class="flex-1">
 
@@ -170,16 +146,12 @@
                 </div>
 
             </div>
-
         @endif
 
 
         @if (session('error'))
-
-            <div
-                class="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-800"
-                role="alert"
-            >
+            <div class="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-red-800"
+                role="alert">
 
                 <div class="flex-1">
 
@@ -194,7 +166,6 @@
                 </div>
 
             </div>
-
         @endif
 
     </div>
@@ -236,19 +207,13 @@
 
                 <div class="flex items-center gap-5 text-sm">
 
-                    <a
-                        href="{{ route('articulos.index') }}"
-                        class="text-slate-500 transition hover:text-slate-900"
-                    >
+                    <a href="{{ route('articulos.index') }}" class="text-slate-500 transition hover:text-slate-900">
                         Publicaciones
                     </a>
 
                     @guest
 
-                        <a
-                            href="{{ route('login') }}"
-                            class="text-slate-500 transition hover:text-slate-900"
-                        >
+                        <a href="{{ route('login') }}" class="text-slate-500 transition hover:text-slate-900">
                             Administración
                         </a>
 
