@@ -22,4 +22,9 @@ class Articulo extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
