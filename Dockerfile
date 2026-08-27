@@ -35,6 +35,8 @@ RUN composer install \
     --prefer-dist \
     --optimize-autoloader
 
+RUN rm -f public/hot
+
 RUN npm install && npm run build
 
 RUN chown -R www-data:www-data \
