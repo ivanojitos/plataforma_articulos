@@ -73,7 +73,7 @@ class PublicArticleTest extends TestCase
         $this->get(route('articulos.index'))
             ->assertOk()
             ->assertSee('storage/articulos/imagen-prueba.jpg', false)
-            ->assertSee('Imagen destacada de '.$articulo->titulo)
+            ->assertSee('Imagen destacada de ' . $articulo->titulo)
             ->assertSee('Publicado el 15/08/2026');
     }
 
@@ -99,5 +99,24 @@ class PublicArticleTest extends TestCase
             ->assertSee($categoria->nombre)
             ->assertSee('Publicado el 20/08/2026')
             ->assertSee('Contenido seguro del artículo.');
+    }
+
+    public function test_article_without_uploaded_image_uses_category_cover(): void
+    {
+        $categoria = Categoria::factory()->create([
+            'nombre' => 'Diseño',
+            'slug' => 'diseno',
+        ]);
+
+        Articulo::factory()
+            ->for($categoria, 'categoria')
+            ->create([
+                'titulo' => 'Artículo sin imagen subida',
+                'imagen' => null,
+            ]);
+
+        $this->get(route('articulos.index'))
+            ->assertOk()
+            ->assertSee('images/articulos/diseno.webp', false);
     }
 }

@@ -14,7 +14,7 @@ class ArticuloSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-   public function run(): void
+    public function run(): void
     {
         $tecnologia = Categoria::where('slug', 'tecnologia')->first();
         $diseno = Categoria::where('slug', 'diseno')->first();
@@ -123,7 +123,6 @@ class ArticuloSeeder extends Seeder
                     'titulo' => $articulo['titulo'],
                     'descripcion' => $articulo['descripcion'],
                     'contenido' => $articulo['contenido'],
-                    'imagen' => null
                 ]
             );
         }

@@ -23,6 +23,23 @@ class Articulo extends Model
         return $this->belongsTo(Categoria::class);
     }
 
+    public function getFeaturedImageUrlAttribute(): string
+    {
+        if (filled($this->imagen)) {
+            return asset('storage/' . ltrim($this->imagen, '/'));
+        }
+
+        $categoria = $this->categoria?->slug;
+
+        $portada = in_array(
+            $categoria,
+            ['tecnologia', 'diseno', 'negocios'],
+            true
+        ) ? $categoria : 'tecnologia';
+
+        return asset("images/articulos/{$portada}.webp");
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';
