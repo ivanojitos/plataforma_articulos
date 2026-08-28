@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('admin')
         ->name('admin.')
+        ->middleware('admin')
         ->group(function () {
 
             // Dashboard administrativo

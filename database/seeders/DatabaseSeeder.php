@@ -11,10 +11,6 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     * Contraseña: password
-     */
     public function run(): void
     {
         $this->call([
@@ -22,12 +18,24 @@ class DatabaseSeeder extends Seeder
             ArticuloSeeder::class,
         ]);
 
-        User::updateOrCreate(
-            ['email' => 'admin@example.com'],
+        $email = config('admin.email');
+        $password = config('admin.password');
+
+        if (blank($email) || blank($password)) {
+            $this->command?->warn(
+                'Administrador no creado: configura ADMIN_EMAIL y ADMIN_PASSWORD.'
+            );
+
+            return;
+        }
+
+        User::query()->updateOrCreate(
+            ['email' => $email],
             [
-                'name' => 'Administrador',
-                'password' => Hash::make('password'),
+                'name' => config('admin.name'),
+                'password' => Hash::make($password),
                 'email_verified_at' => now(),
+                'is_admin' => true,
             ]
         );
     }

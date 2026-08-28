@@ -37,7 +37,7 @@ RUN composer install \
 
 RUN rm -f public/hot
 
-RUN npm install && npm run build
+RUN npm ci && npm run build
 
 RUN chown -R www-data:www-data \
     storage \
@@ -53,4 +53,4 @@ RUN printf '<VirtualHost *:80>\n\
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php artisan storage:link || true; php artisan migrate --force && apache2-foreground"]
+CMD ["sh", "-c", "set -e; php artisan storage:link || true; php artisan migrate --force; php artisan db:seed --force; exec apache2-foreground"]

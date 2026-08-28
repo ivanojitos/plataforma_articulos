@@ -1,211 +1,373 @@
 # Plataforma de Artículos
 
-## Descripción
+Aplicación web desarrollada con Laravel para consultar, clasificar y administrar artículos mediante una interfaz pública y un panel administrativo protegido.
 
-Plataforma web desarrollada con Laravel...
+## Demostración
+
+- Aplicación: <https://plataforma-articulos.onrender.com/>
+- Repositorio: <https://github.com/ivanojitos/plataforma_articulos>
+
+## Funcionalidades
+
+### Sección pública
+
+- Listado de artículos mediante tarjetas.
+- Filtro visible por categoría.
+- Conservación del filtro durante la paginación.
+- Imagen destacada o presentación alternativa.
+- Fecha de publicación visible.
+- Vista de detalle accesible mediante slug.
+- Diseño adaptable a dispositivos móviles, tabletas y escritorio.
+- Estados para listados vacíos y filtros sin resultados.
+
+### Panel administrativo
+
+- Inicio de sesión exclusivo para administradores.
+- Registro público deshabilitado.
+- Panel administrativo protegido con middleware.
+- Creación, edición y eliminación de artículos.
+- Gestión de imágenes destacadas.
+- Validación de formularios.
+- Confirmación antes de eliminar registros.
 
 ## Tecnologías
 
-- Laravel
-- PHP
-- MySQL
-- Blade
-- Tailwind CSS
-- JavaScript basico
-- Eloquent ORM
-- MVC
-- Migrations + Seeders
-- Middleware
-- CSRF + Validacion Laravel
-- Blade Layouts + Componentes
-- Laravel Storage
+- PHP 8.2 o superior.
+- Laravel 12.
+- MySQL para desarrollo local.
+- PostgreSQL para despliegue en Render.
+- Blade.
+- Tailwind CSS.
+- JavaScript.
+- Vite.
+- Eloquent ORM.
+- PHPUnit.
+- Docker y Apache para producción.
 
+## Arquitectura
+
+El proyecto utiliza el patrón MVC proporcionado por Laravel.
+
+### Modelos
+
+- `User`: usuarios y administradores.
+- `Categoria`: clasificación de los artículos.
+- `Articulo`: contenido publicado.
+
+Una categoría tiene muchos artículos y cada artículo pertenece a una categoría.
+
+### Controladores
+
+- `ArticuloController`: listado y detalle público.
+- `Admin\ArticuloController`: operaciones administrativas.
+- `Admin\DashboardController`: panel administrativo.
+- Controladores de autenticación proporcionados por Laravel Breeze.
+
+### Vistas
+
+- `resources/views/articulos`: interfaz pública.
+- `resources/views/admin`: panel administrativo.
+- `resources/views/auth`: autenticación.
+- `resources/views/layouts`: estructuras reutilizables.
+
+## Seguridad
+
+La aplicación incluye:
+
+- Protección CSRF.
+- Contraseñas almacenadas mediante hashing.
+- Rate limiting en el inicio de sesión.
+- Registro público deshabilitado.
+- Acceso administrativo mediante `auth` y middleware `admin`.
+- Indicador booleano `users.is_admin`.
+- Credenciales administrativas mediante variables de entorno.
+- Validación de datos antes de persistir información.
+- Escape del contenido público para prevenir XSS.
+- Consultas mediante Eloquent para reducir riesgos de inyección SQL.
+- Variables y secretos excluidos del repositorio mediante `.gitignore`.
+
+Los usuarios con `is_admin = false` no pueden iniciar sesión en el panel ni acceder a las rutas `/admin`.
 
 ## Requisitos
 
-PHP 8.2.12
-Composer 2.4.4
-Node.js 25.8.1
-MySQL 8.0.38
-NPM 11.11.0
+Antes de instalar el proyecto necesitas:
 
-## Instalación
+- PHP 8.2 o superior.
+- Composer 2.
+- Node.js 20 o superior.
+- npm.
+- MySQL 8 o PostgreSQL.
+- Git.
 
-Primero ubicate en la carpeta donde quieres que se instale el proyecto.
-una ves posiciondado ahi ahora si ingresa esta linea y da enter.
-y por cada linea da enter y espera y cuando finalice ingresa la siguiente linea.
+En este proyecto local de Windows, PHP 8 puede ejecutarse mediante el alias `php8`. Si tu instalación utiliza `php`, reemplaza `php8` por `php` en los comandos.
 
+## Instalación en Windows
 
+### 1. Clonar el repositorio
+
+```powershell
 git clone https://github.com/ivanojitos/plataforma_articulos.git
+```
 
+```powershell
+cd plataforma_articulos
+```
+
+### 2. Instalar dependencias PHP
+
+```powershell
 composer install
+```
 
+Si tienes un alias específico de Composer:
+
+```powershell
+composer2 install
+```
+
+### 3. Instalar dependencias frontend
+
+```powershell
 npm install
+```
 
-cp .env.example .env
+### 4. Crear el archivo de entorno
 
-php artisan key:generate
+```powershell
+Copy-Item .env.example .env
+```
 
-## Base de datos
+### 5. Generar la clave de Laravel
 
-Configurar .env
+```powershell
+php8 artisan key:generate
+```
+
+## Configuración local
+
+Crea una base de datos vacía llamada:
+
+```text
+plataforma_articulos
+```
+
+Configura `.env`:
+
+```dotenv
+APP_NAME="Plataforma de Artículos"
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+APP_LOCALE=es
+APP_FALLBACK_LOCALE=es
+APP_TIMEZONE=America/Mexico_City
 
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=plataforma_articulos
 DB_USERNAME=root
-DB_PASSWORD=root
+DB_PASSWORD=
+```
 
-## Migraciones
+Ajusta `DB_USERNAME` y `DB_PASSWORD` según tu instalación.
 
-php artisan migrate --seed
+## Administrador
 
-## Storage
+Las credenciales administrativas no están escritas en el código.
 
-php artisan storage:link
+Agrega a tu `.env`:
 
-## Assets
+```dotenv
+ADMIN_NAME="Administrador"
+ADMIN_EMAIL="correo-administrativo@example.com"
+ADMIN_PASSWORD="contraseña-larga-y-exclusiva"
+```
 
+Utiliza una contraseña de al menos 16 caracteres y no la reutilices en otros servicios.
+
+Nunca publiques estos valores ni subas `.env` al repositorio.
+
+En `.env.example` deben permanecer vacíos:
+
+```dotenv
+ADMIN_NAME="Administrador"
+ADMIN_EMAIL=
+ADMIN_PASSWORD=
+```
+
+## Base de datos y datos iniciales
+
+Ejecuta las migraciones y seeders:
+
+```powershell
+php8 artisan migrate --seed
+```
+
+Los seeders crean categorías, artículos de demostración y la cuenta administrativa configurada mediante variables de entorno.
+
+Los seeders utilizan operaciones repetibles para evitar duplicar los registros principales.
+
+## Almacenamiento de imágenes
+
+Crea el enlace simbólico:
+
+```powershell
+php8 artisan storage:link
+```
+
+Las imágenes públicas se sirven desde:
+
+```text
+public/storage
+```
+
+En plataformas con sistema de archivos efímero, las imágenes subidas necesitan almacenamiento persistente externo para no perderse durante reinicios.
+
+## Ejecutar el proyecto
+
+Terminal 1:
+
+```powershell
+php8 artisan serve
+```
+
+Terminal 2:
+
+```powershell
+npm run dev
+```
+
+Abre:
+
+```text
+http://127.0.0.1:8000
+```
+
+## URLs principales
+
+| Sección | URL | Acceso |
+|---|---|---|
+| Inicio | `/` | Público |
+| Artículos | `/articulos` | Público |
+| Detalle | `/articulos/{slug}` | Público |
+| Login | `/login` | Público |
+| Administración | `/admin` | Solo administrador |
+| Gestión de artículos | `/admin/articulos` | Solo administrador |
+| Health check | `/up` | Público |
+
+## Compilación de producción
+
+```powershell
 npm run build
+```
 
-## Servidor
+## Pruebas automatizadas
 
-php artisan serve
+Ejecuta todas las pruebas:
 
-## Usuario administrador
+```powershell
+php8 artisan test
+```
 
-Email:
-admin@example.com
+Pruebas específicas de seguridad:
 
-Password:
-password
+```powershell
+php8 artisan test tests\Feature\Authorization\AdminAccessTest.php
+```
 
-## URLs
+Pruebas de artículos públicos:
 
-Público:
+```powershell
+php8 artisan test tests\Feature\PublicArticleTest.php
+```
 
-/articulos
+Las pruebas comprueban:
 
-Administración:
+- Redirección de invitados al login.
+- Bloqueo de usuarios no administradores.
+- Acceso correcto del administrador.
+- Desactivación del registro público.
+- Listado público de artículos.
+- Filtrado por categoría.
+- Imagen destacada y fecha.
+- Acceso al detalle mediante slug.
 
-/admin
+## Despliegue con Docker
 
+El repositorio incluye:
 
+- `Dockerfile`.
+- `.dockerignore`.
+- Soporte para MySQL y PostgreSQL.
+- Compilación de recursos con Vite.
+- Ejecución automática de migraciones.
+- Creación del enlace de almacenamiento.
+- Apache configurado con `public` como raíz.
 
-La sección pública puede ser consultada sin autenticación.
+Variables mínimas para producción:
 
-La sección administrativa requiere iniciar sesión con el usuario administrador
-creado mediante el Seeder.
+```dotenv
+APP_NAME="Plataforma de Artículos"
+APP_ENV=production
+APP_DEBUG=false
+APP_KEY=
+APP_URL=https://tu-dominio.example
+ASSET_URL=https://tu-dominio.example
 
-## Decisiones UX/UI
+DB_CONNECTION=pgsql
+DATABASE_URL=
 
-La interfaz fue diseña buscando una experiencia sencilla, clara y consistente tanto para los usuarios  de la seccion puiblicac como para el administrador
+ADMIN_NAME="Administrador"
+ADMIN_EMAIL=
+ADMIN_PASSWORD=
+```
 
-SECCION PUBLICA
+`APP_KEY`, `DATABASE_URL` y `ADMIN_PASSWORD` deben configurarse como secretos en la plataforma de alojamiento.
 
-la seccion de articulos utiliza una estructura visual basada en tarjetas para facilitar la exploracion del contenido. cada tarjeta muestra la informacion pricipal del articulo, imagen destacada, titulo, cateegoria y descripcion junto con su fecha de creacion.
+## Buenas prácticas para contribuir
 
-el filtro de categoria se muestra visible y accesiuble para que el usuario pueda encontrar contenido especifico sin necesidad de navegar entre diferentes paginas 
+Antes de guardar cambios:
 
-la vista de detalle utiliza una jerarquia visual clara , destacando el titulo, categoria, fecha , imagen y contenido completo.
+```powershell
+php8 artisan test
+```
 
-SECCION ADMINISTRATIVA
+```powershell
+npm run build
+```
 
-la administracion se diseño priorizando las acciones principales:
+```powershell
+git diff --check
+```
 
--consultar articulos.
--crear articulos.
--editar articulos.
-eliminar articulos.
+Después:
 
-los formularios utilizan etiquetas claras,mensajes de validacion y estados visuales para comunicar al usuario si una operacion fue realizada correctamente o si existe algun problema.
+```powershell
+git add .
+git commit -m "descripción clara del cambio"
+git push origin main
+```
 
-antes de eliminar un articulo se solicita confirmacion para evitar acciones accidentales.
+No incluir en commits:
 
-RESPONSIVE
+- `.env`.
+- Contraseñas.
+- Tokens.
+- URLs privadas de bases de datos.
+- Carpetas `vendor` o `node_modules`.
+- Copias ZIP del proyecto.
 
-la interfaz fue desarrollada considerante diferentes tamaños de pantalla.
-los componenetes se adaptan a dispositivos, moviles,tablets y escritorio,
-manteniendo la legibilidad y accesibilidad de las acciones principales.
+## Experiencia de usuario
 
-Estados.
+La interfaz utiliza una jerarquía visual clara, navegación consistente, controles accesibles y estados comprensibles.
 
-Se contemplan diferentes estados para mejorar la experiencia:
+El filtro por categoría permanece visible antes del listado. Cada tarjeta presenta categoría, fecha, título, descripción, imagen y acceso al detalle.
 
--lista de articulos vacia.
--filtro sin resultados.
--errores de validacion.
--operaciones realizadas correctamente.
--confirmacion antes de eliminar.
-estados de carga y navegacion cuando corresponde. 
+El panel administrativo prioriza las acciones principales y muestra validaciones, confirmaciones y resultados de las operaciones.
 
+## Estado del proyecto
 
-
-
-## Arquitectura
-
-El proyecto utiliza laravel sigueinte una estrucutra basada en el patron MVC proporcianado por el framework.
-
-Modelo
-
-Los modelos representan las entidades principales de la aplicacion
-
--user
-articulo
-categoria
-
-articulos mantiene una relacion bologsto con categoria mientras que categoria mantiene una relacion hasmany con articulo.
-
-Controlador.
-
-La logica relacionad con los articulos se separa entre la seccion publica y la administracion
-
--articulocontroller : consulta y muestra los articulos publicos.
--admin\ar5ticulocontroller : administra las operaciones crud.
-admin\dashboardcontroller : gestiona el panel administrativo.
-
-esta separacion permite mantener diferenciadas las responabilidades de la seccion publica y privada.
-
-VISTAS
-
-las vistas se implementaron utilizando blade y se organizaron por contexto 
-
--articulos : vistas publicas
--admin/ : vistas administrativas
--layouts/ : estructuras reutilizables
--auth/ : vistas relacionadas con autenticacion 
-
-se utilizan layouts y componentes reutilizables para evitar duplicacion de codigo y mantener consistencia visual.
-
-PERSISTENCIA
-
-la informacion se almacena en una base de datos relacionl utilizando Eloquent ORM.
-
-las tablas principales son 
-
--user
--categorias
--articulos
-
-la relacion entres articulos yu categorias se estable mediante categoria_id
-
-VALIDACION Y SEGURIDAD
-
-las solicitudes son validadas desde los controladores antes de persistir informacion
-
-se utilizan las funcionalidades prorporciandas por laravel para:
-
--proteccion CSRF
--autenticacion
--hash seguro de contraseñas.
--validacion de datos.
--proteccion de rutas administrativas.
--escape de contenido mostrado en las vistas.
-
-FRONT END
-
-la interfaz utiliza blade junto con Tailwind css para la construccion de los componentes visuales y el diseño responsive.
-
-la logica de negocio permanece principalmente en laravel , mientras que el font end se encarga de la presentacion y las intereacciones necesarias para la experiencia del usuario.
-
+El proyecto se encuentra funcional y en mejora continua. Su objetivo es demostrar conocimientos de Laravel, arquitectura MVC, seguridad, persistencia, autenticación, pruebas y diseño de interfaces.
